@@ -10,18 +10,18 @@ const Navbar = () => {
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/#classes" className="text-text-primary hover:text-brand-green transition-colors">
+            <a href="#classes" className="text-text-primary hover:text-brand-green transition-colors">
               Classes
-            </Link>
-            <Link to="/#schedule" className="text-text-primary hover:text-brand-green transition-colors">
+            </a>
+            <a href="#schedule" className="text-text-primary hover:text-brand-green transition-colors">
               Schedule
-            </Link>
-            <Link to="/#instructors" className="text-text-primary hover:text-brand-green transition-colors">
+            </a>
+            <a href="#instructors" className="text-text-primary hover:text-brand-green transition-colors">
               Instructors
-            </Link>
-            <Link to="/#pricing" className="text-text-primary hover:text-brand-green transition-colors">
+            </a>
+            <a href="#pricing" className="text-text-primary hover:text-brand-green transition-colors">
               Pricing
-            </Link>
+            </a>
           </div>
           
           <Link
