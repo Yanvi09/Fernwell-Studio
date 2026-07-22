@@ -29,7 +29,7 @@ const BookingWizard = () => {
         day: location.state.day,
         time: location.state.time,
         priceId: location.state.priceId,
-        step: location.state.priceId ? 4 : (location.state.classId ? 2 : 1)
+        step: location.state.priceId ? 4 : (location.state.classId && location.state.day && location.state.time ? 3 : (location.state.classId ? 2 : 1))
       }))
     }
   }, [location.state])
