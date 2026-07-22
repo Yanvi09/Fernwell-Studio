@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const instructors = [
   {
     id: 1,
@@ -23,6 +25,8 @@ const instructors = [
 ]
 
 const InstructorBios = () => {
+  const [expandedId, setExpandedId] = useState<number | null>(null)
+
   return (
     <section id="instructors" className="py-20 bg-surface-warm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +39,11 @@ const InstructorBios = () => {
         
         <div className="grid md:grid-cols-3 gap-8">
           {instructors.map((instructor) => (
-            <div key={instructor.id} className="bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div 
+              key={instructor.id} 
+              onClick={() => setExpandedId(expandedId === instructor.id ? null : instructor.id)}
+              className="bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            >
               <div className="aspect-square bg-gray-200">
                 <img 
                   src={instructor.image}
@@ -48,8 +56,11 @@ const InstructorBios = () => {
                   {instructor.name}
                 </h3>
                 <p className="text-accent-amber font-medium mb-3">{instructor.specialty}</p>
-                <p className="text-text-muted text-sm">
+                <p className={`text-text-muted text-sm ${expandedId === instructor.id ? '' : 'line-clamp-2'}`}>
                   {instructor.bio}
+                </p>
+                <p className="text-brand-green text-sm mt-2 font-medium">
+                  {expandedId === instructor.id ? 'Click to collapse' : 'Click to read more'}
                 </p>
               </div>
             </div>
