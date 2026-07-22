@@ -14,11 +14,12 @@ const ClassTypes = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {classTypes.map((classType) => (
             <div key={classType.id} className="bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="aspect-[4/3] bg-gray-200">
+              <div className="aspect-[4/3] bg-gray-200 relative overflow-hidden">
                 <img 
                   src={`https://images.unsplash.com/photo-${classType.id === 'vinyasa' ? '1599447426368-99df35d13c9c' : classType.id === 'restorative' ? '1599901860904-5e913f927a8a' : '1600783607026-524886390d75'}?w=600&q=80`}
                   alt={classType.name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="p-6">
