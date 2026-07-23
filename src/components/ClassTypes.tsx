@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import { classTypes } from '../mock-data/classes'
 
 const ClassTypes = () => {
+  const navigate = useNavigate()
+
   return (
     <section id="classes" className="py-20 bg-surface-warm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,7 +16,11 @@ const ClassTypes = () => {
         
         <div className="grid md:grid-cols-3 gap-8">
           {classTypes.map((classType) => (
-            <div key={classType.id} className="bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div
+              key={classType.id}
+              onClick={() => navigate('/book', { state: { classId: classType.id } })}
+              className="cursor-pointer bg-surface rounded-2xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg"
+            >
               <div className="aspect-[4/3] bg-gray-200 relative overflow-hidden">
                 <img 
                   src={`https://picsum.photos/seed/${classType.id === 'vinyasa' ? 'vinyasa' : classType.id === 'restorative' ? 'restorative' : 'pilates'}/800/600`}
