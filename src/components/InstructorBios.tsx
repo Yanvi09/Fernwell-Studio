@@ -25,7 +25,8 @@ const instructors = [
 ]
 
 const InstructorBios = () => {
-  const [expandedId, setExpandedId] = useState<number | null>(null)
+  const [openInstructor, setOpenInstructor] = useState<typeof instructors[0] | null>(null)
+  const [messageSent, setMessageSent] = useState(false)
 
   return (
     <section id="instructors" className="py-20 bg-surface-warm">
@@ -41,7 +42,7 @@ const InstructorBios = () => {
           {instructors.map((instructor) => (
             <div 
               key={instructor.id} 
-              onClick={() => setExpandedId(expandedId === instructor.id ? null : instructor.id)}
+              onClick={() => { setOpenInstructor(instructor); setMessageSent(false); }}
               className="bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="aspect-square bg-gray-200">
@@ -56,16 +57,46 @@ const InstructorBios = () => {
                   {instructor.name}
                 </h3>
                 <p className="text-accent-amber font-medium mb-3">{instructor.specialty}</p>
-                <p className={`text-text-muted text-sm ${expandedId === instructor.id ? '' : 'line-clamp-2'}`}>
+                <p className="text-text-muted text-sm line-clamp-2">
                   {instructor.bio}
                 </p>
                 <p className="text-brand-green text-sm mt-2 font-medium">
-                  {expandedId === instructor.id ? 'Click to collapse' : 'Click to read more'}
+                  Click to contact
                 </p>
               </div>
             </div>
           ))}
         </div>
+
+        {openInstructor && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setOpenInstructor(null)}>
+            <div className="bg-surface rounded-xl p-6 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+              <h3 className="font-fraunces text-xl text-brand-green mb-2">{openInstructor.name}</h3>
+              <p className="text-sm text-accent-amber mb-3">{openInstructor.specialty}</p>
+              <p className="text-sm text-text-muted mb-4">{openInstructor.bio}</p>
+
+              {!messageSent ? (
+                <>
+                  <textarea
+                    placeholder={`Ask ${openInstructor.name} a question...`}
+                    className="w-full p-3 border border-border rounded-lg text-sm mb-3 focus:outline-none focus:border-brand-green"
+                    rows={3}
+                  />
+                  <button
+                    onClick={() => setMessageSent(true)}
+                    className="px-4 py-2 bg-accent-amber text-white rounded-lg text-sm hover:bg-accent-amber/90 transition-colors"
+                  >
+                    Send message
+                  </button>
+                </>
+              ) : (
+                <p className="text-sm text-brand-green">
+                  Message sent! {openInstructor.name.split(' ')[0]} typically replies within 24 hours.
+                </p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
