@@ -292,5 +292,4 @@ Feel free to use it as inspiration for your own projects.
 **Anvi Yadav**
 
 - GitHub: https://github.com/Yanvi09
-- LinkedIn: *(Add your LinkedIn profile)*
-- Portfolio: *(Add your portfolio URL)*
+
