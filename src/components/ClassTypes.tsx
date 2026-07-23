@@ -16,7 +16,7 @@ const ClassTypes = () => {
             <div key={classType.id} className="bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
               <div className="aspect-[4/3] bg-gray-200 relative overflow-hidden">
                 <img 
-                  src={`https://images.unsplash.com/photo-${classType.id === 'vinyasa' ? '1599447426368-99df35d13c9c' : classType.id === 'restorative' ? '1599901860904-5e913f927a8a' : '1600783607026-524886390d75'}?w=600&q=80`}
+                  src={`https://picsum.photos/seed/${classType.id === 'vinyasa' ? 'vinyasa' : classType.id === 'restorative' ? 'restorative' : 'pilates'}/800/600`}
                   alt={classType.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
