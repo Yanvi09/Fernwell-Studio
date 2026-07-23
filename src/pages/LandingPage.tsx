@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ClassTypes from '../components/ClassTypes'
@@ -8,6 +10,15 @@ import Testimonials from '../components/Testimonials'
 import Footer from '../components/Footer'
 
 const LandingPage = () => {
+  const location = useLocation()
+
+  useEffect(() => {
+    const state = location.state as { scrollTo?: string } | null
+    if (state?.scrollTo) {
+      document.getElementById(state.scrollTo)?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [location])
+
   return (
     <div className="min-h-screen">
       <Navbar />
