@@ -1,4 +1,19 @@
+import { useState } from 'react'
+
 const Footer = () => {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubscribe = () => {
+    if (!email.includes('@') || !email.includes('.')) {
+      setError('Please enter a valid email')
+      return
+    }
+    setError('')
+    setSubscribed(true)
+  }
+
   return (
     <footer className="bg-brand-green text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,16 +49,28 @@ const Footer = () => {
             <p className="text-white/70 mb-4 text-sm">
               Subscribe for class updates and wellness tips
             </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40"
-              />
-              <button className="bg-accent-amber hover:bg-accent-amber/90 px-4 py-2 rounded-lg font-medium transition-colors">
-                Join
-              </button>
-            </div>
+            {subscribed ? (
+              <p className="text-sm text-white">Thanks for subscribing! Check your inbox soon.</p>
+            ) : (
+              <>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+                  />
+                  <button
+                    onClick={handleSubscribe}
+                    className="bg-accent-amber hover:bg-accent-amber/90 px-4 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    Join
+                  </button>
+                </div>
+                {error && <p className="text-sm text-red-300 mt-1">{error}</p>}
+              </>
+            )}
             
             {/* Social Links */}
             <div className="flex gap-4 mt-6">
