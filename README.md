@@ -1,95 +1,172 @@
-Fernwell Studio
+# 🌿 Fernwell Studio
 
-A boutique yoga and pilates studio experience — where every interaction is designed, not just styled.
+*A boutique yoga & pilates studio website with a complete class booking experience and a simulated payment gateway.*
 
-🔗 Live demo: Fernwell Studio
+<p align="center">
 
-A boutique yoga and pilates studio website with a real class-booking flow and a simulated payment gateway. This portfolio piece demonstrates intentional, editorial design with warm botanical aesthetics — built as a companion piece to Lumetric (a dark, data-dense analytics dashboard) to show range across two very different product personalities.
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v3-38B2AC?logo=tailwind-css)
+![Netlify](https://img.shields.io/badge/Deployment-Netlify-00C7B7?logo=netlify)
 
-Concept
+</p>
 
-Fernwell Studio is designed to be the opposite of generic wellness templates — it features a deep pine green as the dominant brand color, warm editorial typography, and organic visual elements that create a distinctive brand personality, rather than the cream + terracotta look most wellness sites default to.
+## 🔗 Live Demo
 
-Tech Stack
-Frontend: React 19 + TypeScript + Vite
-Styling: Tailwind CSS v3 with custom design tokens
-Routing: React Router v7
-Payments: Self-contained simulated payment gateway (no backend required)
-Deployment: Netlify
-Icons: Lucide React
-Design Tokens
-Color Palette
-Token	Hex	Use
-bg	
-#FAF6EF	Warm ivory background
-surface	
-#FFFFFF	Cards
-surface-warm	
-#F3EEE3	Alternating section backgrounds
-border	
-#E4DCC9	Hairline dividers
-text-primary	
-#1F2B22	Deep forest green-tinted near-black
-text-muted	
-#6B7566	Captions, secondary text
-brand-green	
-#2F4A3A	Primary brand color
-brand-green-dark	
-#1C2E22	Hover state
-accent-amber	
-#E08E45	CTAs, "Book now" buttons
-accent-clay	
-#D97D6C	Badges, difficulty tags
-Typography
-Display/Headings: Fraunces (warm, editorial serif)
-Body/UI: Manrope
-Signature Elements
-Organic blob-shaped SVG dividers between sections
-Subtle grain/noise texture overlay on hero image
-Generous whitespace and large serif headlines
-Pages & Routes
-/ — Full landing page with hero, classes, schedule preview, instructors, pricing, testimonials
-/book — Multi-step booking wizard (4 steps)
-/book/confirmation — Booking confirmation screen
-Features
-Booking Flow
-Choose Class Type — Select from Vinyasa Flow, Restorative Yoga, or Pilates Sculpt — clickable straight from the "Our Classes" section or the schedule grid
-Select Date/Time — Interactive schedule grid with clickable time slots
-Contact Info — Form with validation for name, email, phone
-Payment — Simulated payment gateway with card formatting, a processing state, and success/failure handling
-Site-wide Navigation
+👉 **https://your-live-demo-link.netlify.app**
 
-Nav links work from any page, not just the homepage — clicking "Pricing" from /book navigates back to the landing page and smooth-scrolls straight to that section.
+---
 
-Schedule Grid
-Desktop: full week grid, days as columns, time slots as rows
-Mobile: day-by-day list view for smaller screens
-Every populated cell is clickable and pre-fills the booking wizard with that class and time
-Instructor Cards
+# 📖 Overview
 
-Clicking an instructor opens their full bio plus a lightweight "send a message" simulation — no backend, just a clean, real-feeling interaction instead of a static photo.
+Fernwell Studio is a premium yoga and pilates studio website featuring a complete multi-step booking experience with a simulated payment gateway.
 
-Newsletter Signup
+Rather than following the typical cream-and-terracotta wellness aesthetic, the design embraces deep botanical greens, editorial typography, organic shapes, and generous whitespace to create a distinctive luxury wellness brand.
 
-Client-side email validation with a confirmation state — no dead "Join" button.
+This project was built as a companion piece to **Lumetric**, demonstrating the ability to design both warm consumer-facing experiences and complex dashboard interfaces.
 
-Simulated Payment Gateway
+---
 
-A card form with input formatting, a processing delay, and realistic success/failure states. Test card 4242 4242 4242 4242 always succeeds; anything else shows a styled decline message. This is intentionally self-contained (no backend, no real charges) — built to demonstrate payment-flow UX and state handling rather than a production payment integration.
+# ✨ Key Features
 
-Setup Instructions
-Local Development
-bash
-git clone https://github.com/Yanvi09/Fernwell-Studio.git
-cd Fernwell-Studio
-npm install
-npm run dev
-Netlify Deployment
+### 🧘 Complete Booking Experience
 
-Connect this repository to Netlify and deploy — no environment variables or serverless functions are required, since the payment flow is fully client-side.
+- Multi-step booking wizard
+- Class selection
+- Date & time selection
+- Contact information form
+- Payment step
+- Booking confirmation
 
-Project Structure
+---
+
+### 📅 Interactive Schedule
+
+- Weekly desktop schedule
+- Mobile-friendly schedule
+- Clickable class slots
+- Automatically pre-fills booking information
+
+---
+
+### 💳 Simulated Payment Gateway
+
+- Card number formatting
+- Processing animation
+- Success & failure states
+- Test payment support
+
+**Test Card**
+
+```
+4242 4242 4242 4242
+```
+
+Any other card number displays a styled decline message.
+
+---
+
+### 👨‍🏫 Instructor Profiles
+
+- Detailed instructor bios
+- Message interaction simulation
+- Lightweight UX without backend
+
+---
+
+### 📧 Newsletter
+
+- Email validation
+- Confirmation state
+- Responsive interaction
+
+---
+
+### 🌐 Smart Navigation
+
+Navigation works from every route.
+
+For example:
+
+```
+/book → Pricing
+```
+
+automatically returns to the landing page and smoothly scrolls to the Pricing section.
+
+---
+
+# 🎨 Design Philosophy
+
+Fernwell intentionally avoids generic wellness website templates by focusing on:
+
+- Deep pine green branding
+- Editorial typography
+- Organic SVG section dividers
+- Grain texture overlays
+- Photography-first layouts
+- Large serif headlines
+- Generous whitespace
+- Warm botanical aesthetic
+
+---
+
+# 🎨 Design System
+
+## Color Palette
+
+| Token | Hex | Usage |
+|-------|------|------|
+| Background | `#FAF6EF` | Warm ivory |
+| Surface | `#FFFFFF` | Cards |
+| Surface Warm | `#F3EEE3` | Alternate sections |
+| Border | `#E4DCC9` | Dividers |
+| Text Primary | `#1F2B22` | Primary text |
+| Text Muted | `#6B7566` | Secondary text |
+| Brand Green | `#2F4A3A` | Primary brand |
+| Brand Green Dark | `#1C2E22` | Hover |
+| Accent Amber | `#E08E45` | CTA buttons |
+| Accent Clay | `#D97D6C` | Tags & badges |
+
+### Typography
+
+| Usage | Font |
+|--------|------|
+| Headings | Fraunces |
+| Body | Manrope |
+
+---
+
+# 🛠 Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Frontend | React 19 |
+| Language | TypeScript |
+| Build Tool | Vite |
+| Styling | Tailwind CSS v3 |
+| Routing | React Router v7 |
+| Icons | Lucide React |
+| Deployment | Netlify |
+
+---
+
+# 📄 Pages
+
+| Route | Description |
+|-------|-------------|
+| `/` | Landing page |
+| `/book` | Booking wizard |
+| `/book/confirmation` | Booking confirmation |
+
+---
+
+# 📂 Project Structure
+
+```
 src/
+│
 ├── components/
 │   ├── Navbar.tsx
 │   ├── Hero.tsx
@@ -99,37 +176,121 @@ src/
 │   ├── PricingTiers.tsx
 │   ├── Testimonials.tsx
 │   └── Footer.tsx
+│
 ├── pages/
 │   ├── LandingPage.tsx
 │   ├── BookingWizard.tsx
-│   │   └── PaymentStep.tsx   # simulated payment gateway
+│   ├── PaymentStep.tsx
 │   └── BookingConfirmation.tsx
+│
 ├── mock-data/
 │   ├── classes.ts
-│   ├── schedule.ts
-│   └── pricing.ts
+│   ├── pricing.ts
+│   └── schedule.ts
+│
 ├── App.tsx
 ├── main.tsx
 └── index.css
-Design Philosophy
+```
 
-This project intentionally avoids the generic "cream + terracotta" wellness template aesthetic by:
+---
 
-Using deep pine green as the dominant brand color
-Incorporating organic, hand-drawn-looking visual elements
-Applying editorial typography with Fraunces serif font
-Including subtle texture overlays for depth
-Prioritizing generous whitespace and photography-first layouts
-Browser Support
+# 🚀 Getting Started
 
-Modern browsers with ES2020+ support. Mobile-responsive down to 375px width.
+## Clone Repository
 
-About this project
+```bash
+git clone https://github.com/Yanvi09/Fernwell-Studio.git
+```
 
-Built as a portfolio case study for freelance frontend work, alongside a companion piece (Lumetric, an analytics dashboard) to demonstrate range — dense data UI versus warm consumer-facing design, both with real interaction logic, not just static screens.
+```bash
+cd Fernwell-Studio
+```
 
-Interested in working together? [Add your contact info / freelance profile link here]
+## Install Dependencies
 
-License
+```bash
+npm install
+```
 
-This is a portfolio project. Feel free to use as reference for your own projects.
+## Start Development Server
+
+```bash
+npm run dev
+```
+
+---
+
+# 🌐 Deployment
+
+The project is deployed on **Netlify**.
+
+No backend, API keys, or environment variables are required because the payment experience is fully simulated on the client.
+
+---
+
+# 📱 Responsive Design
+
+Designed for:
+
+- Desktop
+- Tablet
+- Mobile
+
+Responsive down to **375px**.
+
+---
+
+# 📸 Screenshots
+
+> Add screenshots here.
+
+```
+Hero Section
+
+Booking Wizard
+
+Schedule
+
+Payment Gateway
+
+Confirmation Screen
+```
+
+---
+
+# 🚀 Future Improvements
+
+- Real Stripe integration
+- Backend booking API
+- Authentication
+- Calendar sync
+- Email confirmations
+- CMS for instructors
+- Admin dashboard
+
+---
+
+# 👩‍💻 About This Project
+
+Fernwell Studio was created as a portfolio project to showcase premium frontend development, interaction design, and polished user experiences.
+
+Together with **Lumetric** (an analytics dashboard), it demonstrates versatility across both editorial consumer interfaces and data-intensive enterprise applications.
+
+---
+
+# 📜 License
+
+This project is intended for portfolio and educational purposes.
+
+Feel free to use it as inspiration for your own projects.
+
+---
+
+# 👤 Author
+
+**Anvi Yadav**
+
+- GitHub: https://github.com/Yanvi09
+- LinkedIn: *(Add your LinkedIn profile)*
+- Portfolio: *(Add your portfolio URL)*
