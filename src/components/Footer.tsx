@@ -50,7 +50,7 @@ const Footer = () => {
               Subscribe for class updates and wellness tips
             </p>
             {subscribed ? (
-              <p className="text-sm text-white">Thanks for subscribing! Check your inbox soon.</p>
+              <p className="text-sm text-accent-amber">Thanks for subscribing! Check your inbox soon.</p>
             ) : (
               <>
                 <div className="flex gap-2">
