@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { classTypes } from '../mock-data/classes'
 import { pricingTiers } from '../mock-data/pricing'
 import ScheduleGrid from '../components/ScheduleGrid'
@@ -18,8 +18,14 @@ type BookingState = {
 
 const BookingWizard = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [booking, setBooking] = useState<BookingState>({ step: 1 })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [paymentProcessing, setPaymentProcessing] = useState(false)
+  const [paymentError, setPaymentError] = useState('')
+  const [cardNumber, setCardNumber] = useState('')
+  const [expiry, setExpiry] = useState('')
+  const [cvc, setCvc] = useState('')
 
   useEffect(() => {
     if (location.state) {
@@ -66,29 +72,53 @@ const BookingWizard = () => {
     setBooking(prev => ({ ...prev, step: prev.step - 1 }))
   }
 
-  const handlePayment = async () => {
+  const handlePayment = () => {
     if (!booking.priceId) {
       alert('Please select a pricing plan')
       return
     }
 
-    try {
-      const response = await fetch('/.netlify/functions/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ priceId: booking.priceId }),
-      })
-
-      const { url } = await response.json()
-      if (url) {
-        window.location.href = url
-      }
-    } catch (error) {
-      console.error('Payment error:', error)
-      alert('Payment failed. Please try again.')
+    if (!cardNumber || !expiry || !cvc) {
+      setPaymentError('Please fill in all card details')
+      return
     }
+
+    setPaymentProcessing(true)
+    setPaymentError('')
+
+    setTimeout(() => {
+      const cleanedCardNumber = cardNumber.replace(/\s/g, '')
+      if (cleanedCardNumber === '4242424242424242') {
+        // Success
+        const selectedPlan = pricingTiers.find(p => p.priceId === booking.priceId)
+        navigate('/book/confirmation', { 
+          state: { 
+            className: selectedClass?.name,
+            day: booking.day,
+            time: booking.time,
+            planName: selectedPlan?.name
+          } 
+        })
+      } else {
+        // Failure
+        setPaymentProcessing(false)
+        setPaymentError('Your card was declined. Try the test card: 4242 4242 4242 4242')
+      }
+    }, 1500)
+  }
+
+  const formatCardNumber = (value: string) => {
+    const cleaned = value.replace(/\s/g, '').replace(/\D/g, '')
+    const formatted = cleaned.replace(/(\d{4})(?=\d)/g, '$1 ')
+    return formatted.substring(0, 19)
+  }
+
+  const formatExpiry = (value: string) => {
+    const cleaned = value.replace(/\D/g, '')
+    if (cleaned.length >= 2) {
+      return cleaned.substring(0, 2) + '/' + cleaned.substring(2, 4)
+    }
+    return cleaned.substring(0, 2)
   }
 
   const steps = [
@@ -323,6 +353,67 @@ const BookingWizard = () => {
               ))}
             </div>
 
+            {booking.priceId && (
+              <div className="bg-surface p-6 rounded-2xl mb-6">
+                <h3 className="font-fraunces text-xl font-semibold text-brand-green mb-4">Payment Details</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text-primary mb-2">
+                      Card Number
+                    </label>
+                    <input
+                      type="text"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                      placeholder="1234 5678 9012 3456"
+                      className="w-full px-4 py-3 rounded-lg border border-border focus:outline-none focus:border-brand-green"
+                      maxLength={19}
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-text-primary mb-2">
+                        Expiry (MM/YY)
+                      </label>
+                      <input
+                        type="text"
+                        value={expiry}
+                        onChange={(e) => setExpiry(formatExpiry(e.target.value))}
+                        placeholder="MM/YY"
+                        className="w-full px-4 py-3 rounded-lg border border-border focus:outline-none focus:border-brand-green"
+                        maxLength={5}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-text-primary mb-2">
+                        CVC
+                      </label>
+                      <input
+                        type="text"
+                        value={cvc}
+                        onChange={(e) => setCvc(e.target.value.replace(/\D/g, '').substring(0, 3))}
+                        placeholder="123"
+                        className="w-full px-4 py-3 rounded-lg border border-border focus:outline-none focus:border-brand-green"
+                        maxLength={3}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {paymentError && (
+                  <div className="mt-4 p-3 bg-accent-clay/10 border border-accent-clay/30 rounded-lg">
+                    <p className="text-sm text-accent-clay">{paymentError}</p>
+                  </div>
+                )}
+
+                <p className="text-center text-text-muted text-xs mt-4">
+                  Test mode — use card 4242 4242 4242 4242
+                </p>
+              </div>
+            )}
+
             <div className="flex justify-between">
               <button
                 onClick={handleBack}
@@ -332,16 +423,22 @@ const BookingWizard = () => {
               </button>
               <button
                 onClick={handlePayment}
-                disabled={!booking.priceId}
-                className="bg-accent-amber hover:bg-accent-amber/90 disabled:bg-border disabled:text-text-muted text-white px-8 py-3 rounded-full font-medium transition-colors"
+                disabled={!booking.priceId || paymentProcessing}
+                className="bg-accent-amber hover:bg-accent-amber/90 disabled:bg-border disabled:text-text-muted text-white px-8 py-3 rounded-full font-medium transition-colors flex items-center gap-2"
               >
-                Pay with Stripe
+                {paymentProcessing ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Processing payment...
+                  </>
+                ) : (
+                  `Pay $${pricingTiers.find(p => p.priceId === booking.priceId)?.price || '0'}`
+                )}
               </button>
             </div>
-            
-            <p className="text-center text-text-muted text-sm mt-4">
-              Test mode only — no real charges will be made
-            </p>
           </div>
         )}
       </div>
